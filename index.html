@@ -300,6 +300,12 @@
         letter-spacing: 1px; box-shadow: 0 12px 25px rgba(241, 196, 15, 0.25);
     }
     #verify-btn:hover { background: #d4ac0d; transform: translateY(-2px) scale(1.01); box-shadow: 0 16px 30px rgba(241, 196, 15, 0.35); }
+    .dl-btn {
+        margin-top: 8px; display: inline-block; width: 100%; padding: 10px; border-radius: 8px;
+        background: #34495e; color: #fff; border: none; cursor: pointer; font-weight: 700;
+        transition: 0.2s ease; box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    .dl-btn:hover { transform: translateY(-2px); background: #2c3e50; }
     .shake { animation: shake 0.4s; border: 2px solid #e74c3c !important; }
     @keyframes shake {
         0%, 100% { transform: translateX(0); }
@@ -406,11 +412,15 @@
         </div>
 
         <div class="ticket-container" style="position: relative; width: 100%; max-width: 480px; border: 4px solid #fff; border-radius: 12px; overflow: hidden;">
-            <img src="https://i.ibb.co.com/mrNtTyxK/Whats-App-Image-2026-05-15-at-14-29-41.jpg" style="width: 100%; display: block;">
+            <canvas id="ticket-image-canvas" class="ticket-img" style="width: 100%; display: block; -webkit-user-drag: none; user-select: none;" draggable="false"></canvas>
             
             <canvas id="scratch-canvas" style="position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; z-index: 20; cursor: crosshair; touch-action: none; background: transparent;"></canvas>
             
             <div id="fallback-silver" style="position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; background: #C0C0C0; z-index: 15;"></div>
+        </div>
+
+        <div style="max-width:480px; width:100%; margin: 10px auto; text-align:center;">
+            <button class="dl-btn" id="download-no-numbers">Download image (no numbers)</button>
         </div>
 
         <div class="ticket-container-2">
@@ -538,5 +548,104 @@
             }, 500);
         }
     }
-</script></body>
+</script>
+
+<!-- Prevent saving/downloading of ticket images via right-click or drag + add download-without-numbers -->
+<script>
+    // Protect canvas (ticket) and result image from simple save/drag
+    document.querySelectorAll('.ticket-container canvas, .ticket-container-2 img').forEach(el => {
+        el.setAttribute('draggable', 'false');
+        el.style.webkitUserDrag = 'none';
+        el.addEventListener('dragstart', e => e.preventDefault());
+        el.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            alert('Use the "Download image (no numbers)" button to save without numbers.');
+        });
+    });
+
+    // Load ticket image into the canvas (hides <img> src from DOM)
+    (function loadTicketImage(){
+        const url = 'https://i.ibb.co.com/mrNtTyxK/Whats-App-Image-2026-05-15-at-14-29-41.jpg';
+        const canvas = document.getElementById('ticket-image-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => {
+            // Draw at natural resolution on canvas; CSS will scale for display
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.onerror = () => {
+            // fallback: leave canvas blank
+            console.warn('Ticket image failed to load for canvas rendering.');
+        };
+        img.src = url;
+        // store for redraw on resize if needed
+        window._ticketImg = img;
+    })();
+
+    document.getElementById('download-no-numbers').addEventListener('click', () => {
+        const imgCanvas = document.getElementById('ticket-image-canvas');
+        if (!imgCanvas) return alert('Ticket canvas not found.');
+        downloadNoNumbers(imgCanvas);
+    });
+
+    function downloadNoNumbers(img) {
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+
+        // Calculate region of the scratch numbers (relative to image)
+        const rx = Math.round(0.485 * w);
+        const ry = Math.round(0.022 * h);
+        const rw = Math.round(0.405 * w);
+        const rh = Math.round(0.195 * h);
+
+        // Pixelate the region for stronger obfuscation
+        const pixelSize = Math.max(4, Math.round(Math.min(rw, rh) / 30));
+        const temp = document.createElement('canvas');
+        temp.width = Math.max(1, Math.round(rw / pixelSize));
+        temp.height = Math.max(1, Math.round(rh / pixelSize));
+        const tctx = temp.getContext('2d');
+        // draw scaled-down region into temp
+        tctx.drawImage(img, rx, ry, rw, rh, 0, 0, temp.width, temp.height);
+        // draw scaled-up (pixelated) back onto main canvas
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(temp, 0, 0, temp.width, temp.height, rx, ry, rw, rh);
+        ctx.imageSmoothingEnabled = true;
+
+        // Add randomized noise to the region
+        const noiseCount = Math.round(rw * rh * 0.02);
+        for (let i = 0; i < noiseCount; i++) {
+            const nx = rx + Math.random() * rw;
+            const ny = ry + Math.random() * rh;
+            const s = Math.random() * 3 + 1;
+            ctx.fillStyle = 'rgba(0,0,0,' + (Math.random() * 0.3 + 0.05) + ')';
+            ctx.fillRect(nx, ny, s, s);
+        }
+
+        // Slight translucent overlay to further hide details
+        ctx.fillStyle = '#C0C0C0';
+        ctx.globalAlpha = 0.25;
+        ctx.fillRect(rx, ry, rw, rh);
+        ctx.globalAlpha = 1;
+
+        // Add a clear 'PROTECTED' label
+        ctx.fillStyle = 'rgba(0,0,0,0.8)';
+        ctx.font = `${Math.max(12, Math.round(rh / 6))}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText('PROTECTED', rx + rw / 2, ry + rh / 2 + 6);
+
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'ticket_no_numbers.png';
+        a.click();
+    }
+</script>
+</body>
 </html>
