@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OFFICIAL AGENT PORTAL - GLO THAILAND</title>
     
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dfres34.github.io/Thailottay-official-game-shop/">
+    <meta property="og:title" content="OFFICIAL AGENT PORTAL - GLO THAILAND">
+    <meta property="og:description" content="Verify your ticket and scratch to reveal the results safely.">
+    <meta property="og:image" content="https://i.ibb.co.com/ynLvN8Nw/Whats-App-Image-2026-05-16-at-09-57-41.jpg"> 
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
     <style>
         :root {
             --official-blue: #1e3799;
@@ -35,7 +43,7 @@
 
         /* Thailand Lottery Official Card - FIXED SIZE */
         .agent-card {
-            width: 380px; /* Card size thik kora hoyeche jeno faka na thake */
+            width: 380px; 
             background: linear-gradient(145deg, #ffffff, #eef1f7);
             border-radius: 12px;
             padding: 20px;
@@ -49,13 +57,12 @@
             overflow: hidden;
         }
 
-        /* Logo Watermark Overlay */
         .card-watermark {
             position: absolute;
             right: -15px;
             bottom: -15px;
             width: 160px;
-            opacity: 0.12; /* Halka watermark */
+            opacity: 0.05; 
             pointer-events: none;
             z-index: 1;
         }
@@ -74,11 +81,6 @@
             position: relative;
             z-index: 2;
             flex: 1;
-        }
-
-        .glo-logo-header {
-            width: 35px;
-            margin-bottom: 5px;
         }
 
         .agent-info h2 { 
@@ -109,20 +111,25 @@
         .certificate-box {
             width: 380px;
             background: #fff; padding: 10px; border-radius: 10px;
-            border: 3px solid var(--primary-gold);
+            border: 3px solid var(--gold-accent);
             cursor: pointer;
         }
         .cert-img { width: 100%; border-radius: 5px; }
 
         /* Scratch Section */
         .ticket-container {
-            position: relative; width: 100%; max-width: 450px;
-            border: 4px solid #fff; border-radius: 15px; overflow: hidden;
+            position: relative; width: 100%; max-width: 480px;
+            border: 4px solid #fff; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
         .ticket-img { width: 100%; display: block; }
         #scratch-canvas {
-            position: absolute; top: 2.2%; left: 48%; width: 40.5%; height: 19.5%; 
-            z-index: 10; cursor: crosshair; touch-action: none;
+            position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; 
+            z-index: 20; cursor: crosshair; touch-action: none; background: transparent;
+        }
+        #fallback-silver {
+            position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; 
+            background: #C0C0C0; z-index: 15;
         }
 
         /* 2nd Ticket Container */
@@ -135,13 +142,13 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             background: #000;
-            margin-top: 15px; /* Prothom ticket theke ektu niche thakar jonno */
+            margin-top: 15px;
         }
 
         .result-img {
             width: 100%;
             display: block;
-            filter: brightness(1.05); /* Ektu beshi ujjol dekhabe */
+            filter: brightness(1.05);
         }
 
         .official-badge {
@@ -169,7 +176,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none; /* Jate click e somoshya na hoy */
+            pointer-events: none;
         }
 
         .result-verify-lock span {
@@ -183,146 +190,144 @@
             .agent-card, .certificate-box { width: 95%; }
         }
 
-    /* Full Width Adjustments */
-    .main-header, .membership-banner {
-        width: 100%;
-        left: 0;
-        right: 0;
-    }
+        /* Full Width Adjustments */
+        .main-header, .membership-banner {
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
 
-    .header-container {
-        width: 100%;
-        max-width: 1400px; /* Boro screen e content ektue control e thakbe */
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .header-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Top Identity Bar */
-    .gov-top-bar {
-        background: #ffffff;
-        color: #333;
-        padding: 8px 0;
-        font-size: 11px;
-        font-weight: 800;
-        border-bottom: 3px solid var(--gold-accent);
-    }
+        /* Top Identity Bar */
+        .gov-top-bar {
+            background: #ffffff;
+            color: #333;
+            padding: 8px 0;
+            font-size: 11px;
+            font-weight: 800;
+            border-bottom: 3px solid var(--gold-accent);
+        }
 
-    .official-tag img { width: 18px; margin-right: 8px; vertical-align: middle; }
+        .official-tag img { width: 18px; margin-right: 8px; vertical-align: middle; }
 
-    /* Main Nav Bar */
-    .nav-bar {
-        background: var(--official-blue);
-        padding: 10px 0;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
+        /* Main Nav Bar */
+        .nav-bar {
+            background: var(--official-blue);
+            padding: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-    .logo-area { display: flex; align-items: center; gap: 12px; }
-    .main-logo { width: 45px; }
-    .brand-name { color: #fff; font-size: 22px; font-weight: 900; line-height: 1; }
-    .brand-sub { color: var(--gold-accent); font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .main-logo { width: 45px; }
+        .brand-name { color: #fff; font-size: 22px; font-weight: 900; line-height: 1; }
+        .brand-sub { color: var(--gold-accent); font-size: 10px; font-weight: bold; text-transform: uppercase; }
 
-    .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
-    .nav-links a { text-decoration: none; color: #f0f0f0; font-size: 13px; font-weight: 600; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold-accent); }
+        .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #f0f0f0; font-size: 13px; font-weight: 600; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold-accent); }
 
-    .login-btn a {
-        background: var(--gold-accent);
-        color: #000 !important;
-        padding: 8px 15px;
-        border-radius: 5px;
-        font-weight: 800;
-    }
+        .login-btn a {
+            background: var(--gold-accent);
+            color: #000 !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 800;
+        }
 
-    /* Membership Banner Full Width */
-    .membership-banner {
-        background: linear-gradient(90deg, #1e3799 0%, #0c1116 50%, #1e3799 100%);
-        padding: 25px 10px;
-        text-align: center;
-        border-bottom: 2px solid var(--gold-accent);
-    }
+        /* Membership Banner Full Width */
+        .membership-banner {
+            background: linear-gradient(90deg, #1e3799 0%, #0c1116 50%, #1e3799 100%);
+            padding: 25px 10px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold-accent);
+        }
 
-    .thai-text { color: var(--gold-accent); font-size: 26px; font-weight: 900; margin-bottom: 5px; }
-    .eng-text { color: #ffffff; font-size: 18px; font-weight: 700; letter-spacing: 2px; }
-    .highlight { background: var(--gold-accent); color: #000; padding: 2px 12px; border-radius: 4px; }
-    .trust-badge { color: #27ae60; font-size: 11px; font-weight: bold; margin-top: 10px; }
+        .thai-text { color: var(--gold-accent); font-size: 26px; font-weight: 900; margin-bottom: 5px; }
+        .eng-text { color: #ffffff; font-size: 18px; font-weight: 700; letter-spacing: 2px; }
+        .highlight { background: var(--gold-accent); color: #000; padding: 2px 12px; border-radius: 4px; }
+        .trust-badge { color: #27ae60; font-size: 11px; font-weight: bold; margin-top: 10px; }
 
-    /* Mobile View */
-    @media (max-width: 768px) {
-        .nav-links { display: none; }
-        .header-container { justify-content: center; }
-        .thai-text { font-size: 18px; }
-    }
+        /* Mobile View */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .header-container { justify-content: center; }
+            .thai-text { font-size: 18px; }
+        }
 
-    /* Loading Page Style */
-    #loader {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center;
-        transition: opacity 0.5s ease;
-    }
-    .loader-content { text-align: center; color: #f1c40f; font-family: sans-serif; }
-    .loader-logo { width: 80px; margin-bottom: 20px; animation: pulse 1.5s infinite; }
-    .loading-bar { width: 200px; height: 4px; background: #333; border-radius: 10px; margin: 10px auto; overflow: hidden; }
-    .progress { width: 0%; height: 100%; background: #f1c40f; animation: load 3s forwards; }
-    @keyframes load { to { width: 100%; } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        /* Loading Page Style */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-content { text-align: center; color: #f1c40f; font-family: sans-serif; }
+        .loader-logo { width: 80px; margin-bottom: 20px; animation: pulse 1.5s infinite; }
+        .loading-bar { width: 200px; height: 4px; background: #333; border-radius: 10px; margin: 10px auto; overflow: hidden; }
+        .progress { width: 0%; height: 100%; background: #f1c40f; animation: load 3s forwards; }
+        @keyframes load { to { width: 100%; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-    /* Verification Box Style */
-    .verify-card {
-        background: #1a1a1a; padding: 30px; border-radius: 20px;
-        border: 1px solid #333; width: 350px; text-align: center;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 50px auto;
-        font-family: 'Segoe UI', sans-serif; transition: 0.3s;
-        opacity: 0; transform: translateY(25px); animation: fadeInUp 0.8s ease forwards 0.2s;
-    }
-    .shield-icon { font-size: 40px; margin-bottom: 10px; }
-    .verify-card h3 { color: #fff; margin: 10px 0; letter-spacing: 1px; }
-    .verify-card p { color: #888; font-size: 13px; }
-    .input-group { margin: 25px 0; }
-    #pin-input {
-        width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333;
-        background: #000; color: #fff; text-align: center; font-size: 20px;
-        letter-spacing: 5px; outline: none; transition: 0.3s;
-    }
-    #pin-input:focus { border-color: #f1c40f; box-shadow: 0 0 15px rgba(241, 196, 15, 0.35); }
-    /* Center placeholder text across browsers */
-    #pin-input::placeholder { text-align: center; color: #9a9a9a; opacity: 1; }
-    #pin-input::-webkit-input-placeholder { text-align: center; color: #9a9a9a; }
-    #pin-input::-moz-placeholder { text-align: center; color: #9a9a9a; }
-    #pin-input:-ms-input-placeholder { text-align: center; color: #9a9a9a; }
-    #pin-input:-moz-placeholder { text-align: center; color: #9a9a9a; }
-    #verify-btn {
-        width: 100%; padding: 15px; border-radius: 10px; border: none;
-        background: #f1c40f; color: #000; font-weight: 800; cursor: pointer;
-        transition: 0.25s ease, box-shadow 0.25s ease;
-        letter-spacing: 1px; box-shadow: 0 12px 25px rgba(241, 196, 15, 0.25);
-    }
-    #verify-btn:hover { background: #d4ac0d; transform: translateY(-2px) scale(1.01); box-shadow: 0 16px 30px rgba(241, 196, 15, 0.35); }
-    .dl-btn {
-        margin-top: 8px; display: inline-block; width: 100%; padding: 10px; border-radius: 8px;
-        background: #34495e; color: #fff; border: none; cursor: pointer; font-weight: 700;
-        transition: 0.2s ease; box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-    }
-    .dl-btn:hover { transform: translateY(-2px); background: #2c3e50; }
-    .shake { animation: shake 0.4s; border: 2px solid #e74c3c !important; }
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-10px); }
-        75% { transform: translateX(10px); }
-    }
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(25px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes popIn {
-        from { opacity: 0; transform: translateY(10px) scale(0.97); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    #error-msg { color: #e74c3c; font-size: 12px; margin-top: 10px; font-weight: bold; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; }
-    #error-msg.visible { opacity: 1; transform: translateY(0); animation: popIn 0.25s ease; }
-    #error-msg.success { color: #2ecc71; }
+        /* Verification Box Style */
+        .verify-card {
+            background: #1a1a1a; padding: 30px; border-radius: 20px;
+            border: 1px solid #333; width: 350px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 50px auto;
+            font-family: 'Segoe UI', sans-serif; transition: 0.3s;
+            opacity: 0; transform: translateY(25px); animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+        .shield-icon { font-size: 40px; margin-bottom: 10px; }
+        .verify-card h3 { color: #fff; margin: 10px 0; letter-spacing: 1px; }
+        .verify-card p { color: #888; font-size: 13px; }
+        .input-group { margin: 25px 0; }
+        #pin-input {
+            width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333;
+            background: #000; color: #fff; text-align: center; font-size: 20px;
+            outline: none; transition: 0.3s;
+        }
+        #pin-input:focus { border-color: #f1c40f; box-shadow: 0 0 15px rgba(241, 196, 15, 0.35); }
+        #pin-input::placeholder { text-align: center; color: #9a9a9a; opacity: 1; }
+        
+        #verify-btn {
+            width: 100%; padding: 15px; border-radius: 10px; border: none;
+            background: #f1c40f; color: #000; font-weight: 800; cursor: pointer;
+            transition: 0.25s ease, box-shadow 0.25s ease;
+            letter-spacing: 1px; box-shadow: 0 12px 25px rgba(241, 196, 15, 0.25);
+        }
+        #verify-btn:hover { background: #d4ac0d; transform: translateY(-2px) scale(1.01); box-shadow: 0 16px 30px rgba(241, 196, 15, 0.35); }
+        
+        .dl-btn {
+            margin-top: 12px; display: inline-block; width: 100%; padding: 12px; border-radius: 8px;
+            background: #34495e; color: #fff; border: none; cursor: pointer; font-weight: 700;
+            transition: 0.2s ease; box-shadow: 0 8px 18px rgba(0,0,0,0.35); letter-spacing: 0.5px;
+        }
+        .dl-btn:hover { transform: translateY(-2px); background: #2c3e50; }
+        
+        .shake { animation: shake 0.4s; border: 2px solid #e74c3c !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        #error-msg { color: #e74c3c; font-size: 12px; margin-top: 10px; font-weight: bold; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; }
+        #error-msg.visible { opacity: 1; transform: translateY(0); animation: popIn 0.25s ease; }
+        #error-msg.success { color: #2ecc71; }
     </style>
 </head>
 <body>
@@ -335,20 +340,17 @@
     </div>
 </div>
 
-<!-- Full Width Header Section -->
 <header class="main-header">
-    <!-- Top Identity Bar - 100% Width -->
     <div class="gov-top-bar">
         <div class="header-container">
             <span class="official-tag">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg" alt="Thai Flag">
                 GOVERNMENT LOTTERY OFFICE (OFFICIAL PORTAL)
             </span>
-            <span id="header-clock" class="live-clock">BANGKOK: 22:57:12</span>
+            <span id="header-clock" class="live-clock">BANGKOK: --:--:--</span>
         </div>
     </div>
 
-    <!-- Main Navigation Bar - 100% Width -->
     <nav class="nav-bar">
         <div class="header-container">
             <div class="logo-area">
@@ -358,7 +360,6 @@
                     <span class="brand-sub">Ministry of Finance Security</span>
                 </div>
             </div>
-
             <ul class="nav-links">
                 <li><a href="#" class="active">HOME</a></li>
                 <li><a href="#">VERIFY AGENT</a></li>
@@ -370,7 +371,6 @@
     </nav>
 </header>
 
-<!-- Membership Banner Section - Full Width -->
 <div class="membership-banner">
     <div class="banner-content">
         <div class="thai-text">สมัครสมาชิกอย่างเป็นทางการ - 775 SR</div>
@@ -379,121 +379,96 @@
     </div>
 </div>
 
-    <div class="main-content">
-        <!-- FIXED OFFICIAL CARD -->
-        <div class="agent-card">
-            <!-- Official GLO Watermark Logo -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VERIFIED-AGENT-TH-GLO-992834" class="card-watermark" style="opacity: 0.05;">
-            <!-- Logo back-up as watermark if direct image fails -->
-            <div style="position: absolute; right: 10px; bottom: 10px; font-size: 60px; font-weight: bold; color: var(--official-blue); opacity: 0.05; transform: rotate(-20deg);">GLO</div>
-
-            <div class="verified-badge">VERIFIED</div>
-            
-            <img src="https://i.ibb.co.com/2YPBJzXZ/Whats-App-Image-2026-05-14-at-11-52-35.jpg" class="agent-photo">
-            
-            <div class="agent-info">
-                <!-- GLO Thailand Text Logo Style -->
-                <div style="font-size: 10px; font-weight: 800; color: #555;">GOVERNMENT LOTTERY OFFICE</div>
-                
-                <h2>ABDUL AZIZ 
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="16">
-                </h2>
-                
-                <div class="info-row"><span class="info-label">AGENT ID:</span> TH-GLO-992834</div>
-                <div class="info-row"><span class="info-label">CONTACT:</span> +601172620529</div>
-                <div class="info-row"><span class="info-label">PASSPORT NO:</span> A73237626</div>
-                <div class="info-row"><span class="info-label">STATUS:</span> <span style="color: #27ae60; font-weight: bold;">ACTIVE</span></div>
-            </div>
+<div class="main-content">
+    <div class="agent-card">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VERIFIED-AGENT-TH-GLO-992834" class="card-watermark">
+        <div style="position: absolute; right: 10px; bottom: 10px; font-size: 60px; font-weight: bold; color: var(--official-blue); opacity: 0.05; transform: rotate(-20deg);">GLO</div>
+        <div class="verified-badge">VERIFIED</div>
+        
+        <img src="https://i.ibb.co.com/2YPBJzXZ/Whats-App-Image-2026-05-14-at-11-52-35.jpg" class="agent-photo">
+        
+        <div class="agent-info">
+            <div style="font-size: 10px; font-weight: 800; color: #555;">GOVERNMENT LOTTERY OFFICE</div>
+            <h2>ABDUL AZIZ <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="16"></h2>
+            <div class="info-row"><span class="info-label">AGENT ID:</span> TH-GLO-992834</div>
+            <div class="info-row"><span class="info-label">CONTACT:</span> +601172620529</div>
+            <div class="info-row"><span class="info-label">PASSPORT NO:</span> A73237626</div>
+            <div class="info-row"><span class="info-label">STATUS:</span> <span style="color: #27ae60; font-weight: bold;">ACTIVE</span></div>
         </div>
-
-        <div class="certificate-box" onclick="window.open('https://i.ibb.co/68vG6fH/image-a12fe0.jpg', '_blank')">
-            <img src="https://i.ibb.co.com/ynLvN8Nw/Whats-App-Image-2026-05-16-at-09-57-41.jpg" class="cert-img">
-            <div style="text-align: center; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;">OFFICIAL CERTIFICATE</div>
-        </div>
-
-        <div class="ticket-container" style="position: relative; width: 100%; max-width: 480px; border: 4px solid #fff; border-radius: 12px; overflow: hidden;">
-            <canvas id="ticket-image-canvas" class="ticket-img" style="width: 100%; display: block; -webkit-user-drag: none; user-select: none;" draggable="false"></canvas>
-            
-            <canvas id="scratch-canvas" style="position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; z-index: 20; cursor: crosshair; touch-action: none; background: transparent;"></canvas>
-            
-            <div id="fallback-silver" style="position: absolute; top: 2.2%; left: 48.5%; width: 40.5%; height: 19.5%; background: #C0C0C0; z-index: 15;"></div>
-        </div>
-
-        <div class="ticket-container-2">
-            <div class="official-badge">OFFICIAL RESULT</div>
-            <img src="https://i.ibb.co.com/21ntsKdj/Whats-App-Image-2026-05-15-at-14-29-42.jpg" alt="Thai Lottery Result" class="result-img">
-            <div class="result-verify-lock">
-                <span>VERIFIED RESULT</span>
-            </div>
-        </div>
-
-        <div class="verify-card" id="verify-box">
-            <div class="shield-icon"></div>
-            <h3>AGENT ACCESS PORTAL</h3>
-            <p>Please enter your 3-digit registration PIN</p>
-            
-            <div class="input-group">
-                <input type="password" id="pin-input" maxlength="19">
-            </div>
-            
-            <button onclick="checkAccess()" id="verify-btn">VERIFY & UNLOCK</button>
-            <p id="error-msg"></p>
-        </div>
-
-        <audio id="error-sound" src="https://www.myinstants.com/media/sounds/wrong-answer-126515.mp3"></audio>
     </div>
 
-    <script>
-        const canvas = document.getElementById('scratch-canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        const fallback = document.getElementById('fallback-silver');
-        let isPressed = false;
-        let isUnlocked = false;
+    <div class="certificate-box" onclick="window.open('https://i.ibb.co/68vG6fH/image-a12fe0.jpg', '_blank')">
+        <img src="https://i.ibb.co.com/ynLvN8Nw/Whats-App-Image-2026-05-16-at-09-57-41.jpg" class="cert-img">
+        <div style="text-align: center; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;">OFFICIAL CERTIFICATE</div>
+    </div>
 
-        function init() {
-            // Canvas size thik kora
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            
-            // Scratch layer tairi kora
-            ctx.fillStyle = '#C0C0C0'; // Silver color
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Canvas purapuri load hole fallback box-ti soriye fela
-            fallback.style.display = 'none';
-            
-            ctx.globalCompositeOperation = 'destination-out';
-        }
+    <div class="ticket-container">
+        <canvas id="ticket-image-canvas" class="ticket-img" style="-webkit-user-drag: none; user-select: none;" draggable="false"></canvas>
+        <canvas id="scratch-canvas"></canvas>
+        <div id="fallback-silver"></div>
+    </div>
 
-        function verifyAgent() {
-            const key = document.getElementById('secret-key').value;
-            if(key === '7 2 4') {
-                isUnlocked = true;
-                alert('Verified! You can now scratch.');
-            } else {
-                alert('ACCESS DENIED!');
-            }
-        }
+    <div class="ticket-container-2">
+        <div class="official-badge">OFFICIAL RESULT</div>
+        <img src="https://i.ibb.co.com/21ntsKdj/Whats-App-Image-2026-05-15-at-14-29-42.jpg" alt="Thai Lottery Result" class="result-img">
+        <div class="result-verify-lock">
+            <span>VERIFIED RESULT</span>
+        </div>
+    </div>
 
-        function scratch(e) {
-            if (!isPressed || !isUnlocked) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-            const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-            ctx.beginPath(); ctx.arc(x, y, 15, 0, Math.PI * 2); ctx.fill();
-        }
+    <div class="verify-card" id="verify-box">
+        <div class="shield-icon">🛡️</div>
+        <h3>AGENT ACCESS PORTAL</h3>
+        <p>Please enter your 3-digit registration PIN</p>
+        
+        <div class="input-group">
+            <input type="password" id="pin-input" maxlength="19" placeholder="• • •">
+        </div>
+        
+        <button onclick="checkAccess()" id="verify-btn">VERIFY & UNLOCK</button>
+        <button id="download-no-numbers" class="dl-btn">Download image (no numbers)</button>
+        <p id="error-msg"></p>
+    </div>
 
-        canvas.addEventListener('mousedown', (e) => { isPressed = true; scratch(e); });
-        canvas.addEventListener('mousemove', scratch);
-        window.addEventListener('mouseup', () => isPressed = false);
-        canvas.addEventListener('touchstart', (e) => { isPressed = true; scratch(e); e.preventDefault(); }, {passive: false});
-        canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); }, {passive: false});
-        canvas.addEventListener('touchend', () => isPressed = false);
+    <audio id="error-sound" src="https://www.myinstants.com/media/sounds/wrong-answer-126515.mp3"></audio>
+</div>
 
-        // Page load hobar por ebong window resize holeo thik thakbe
-        window.addEventListener('load', init);
-        window.addEventListener('resize', init);
-    </script>
+<script>
+    const canvas = document.getElementById('scratch-canvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const fallback = document.getElementById('fallback-silver');
+    let isPressed = false;
+    let isUnlocked = false;
+
+    function init() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        
+        ctx.fillStyle = '#C0C0C0'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        fallback.style.display = 'none';
+        ctx.globalCompositeOperation = 'destination-out';
+    }
+
+    function scratch(e) {
+        if (!isPressed || !isUnlocked) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+        ctx.beginPath(); ctx.arc(x, y, 18, 0, Math.PI * 2); ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', (e) => { isPressed = true; scratch(e); });
+    canvas.addEventListener('mousemove', scratch);
+    window.addEventListener('mouseup', () => isPressed = false);
+    canvas.addEventListener('touchstart', (e) => { isPressed = true; scratch(e); e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('touchend', () => isPressed = false);
+
+    window.addEventListener('load', init);
+    window.addEventListener('resize', init);
+</script>
 
 <script>
     // Live Clock for Header
@@ -503,6 +478,7 @@
         document.getElementById('header-clock').innerText = "BANGKOK: " + bangkokTime;
     }, 1000);
 </script>
+
 <script>
     // 3s Loading Logic
     window.addEventListener('load', () => {
@@ -523,14 +499,12 @@
         const msg = document.getElementById('error-msg');
         const rawValue = pinInput.value.trim();
 
-        // Only allow 
         if (rawValue === '7 2 4') {
             isUnlocked = true;
             box.style.borderColor = "#2ecc71";
             msg.classList.add('success');
             msg.innerText = "✅ ACCESS GRANTED! Scratch unlocked.";
             msg.classList.add('visible');
-            // Ekhane apni chaile kono link e redirect ba content unlock korte paren
         } else {
             sound.play();
             pinInput.classList.add('shake');
@@ -546,7 +520,6 @@
     }
 </script>
 
-<!-- Prevent saving/downloading of ticket images via right-click or drag + add download-without-numbers -->
 <script>
     // Protect canvas (ticket) and result image from simple save/drag
     document.querySelectorAll('.ticket-container canvas, .ticket-container-2 img').forEach(el => {
@@ -559,26 +532,24 @@
         });
     });
 
-    // Load ticket image into the canvas (hides <img> src from DOM)
+    // NOTUN CHOBI TI CANVAS E RENDER KORA (Hides image url from view-source)
     (function loadTicketImage(){
-        const url = 'https://i.ibb.co.com/mrNtTyxK/Whats-App-Image-2026-05-15-at-14-29-41.jpg';
+        // Apnar deya notun ticket link
+        const url = 'https://i.ibb.co.com/ynLvN8Nw/Whats-App-Image-2026-05-16-at-09-57-41.jpg';
         const canvas = document.getElementById('ticket-image-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         const img = new Image();
         img.crossOrigin = 'Anonymous';
         img.onload = () => {
-            // Draw at natural resolution on canvas; CSS will scale for display
             canvas.width = img.naturalWidth;
             canvas.height = img.naturalHeight;
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         };
         img.onerror = () => {
-            // fallback: leave canvas blank
-            console.warn('Ticket image failed to load for canvas rendering.');
+            console.warn('Ticket image failed to load.');
         };
         img.src = url;
-        // store for redraw on resize if needed
         window._ticketImg = img;
     })();
 
@@ -596,26 +567,22 @@
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, w, h);
 
-        // Calculate region of the scratch numbers (relative to image)
         const rx = Math.round(0.485 * w);
         const ry = Math.round(0.022 * h);
         const rw = Math.round(0.405 * w);
         const rh = Math.round(0.195 * h);
 
-        // Pixelate the region for stronger obfuscation
         const pixelSize = Math.max(4, Math.round(Math.min(rw, rh) / 30));
         const temp = document.createElement('canvas');
         temp.width = Math.max(1, Math.round(rw / pixelSize));
         temp.height = Math.max(1, Math.round(rh / pixelSize));
         const tctx = temp.getContext('2d');
-        // draw scaled-down region into temp
         tctx.drawImage(img, rx, ry, rw, rh, 0, 0, temp.width, temp.height);
-        // draw scaled-up (pixelated) back onto main canvas
+        
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(temp, 0, 0, temp.width, temp.height, rx, ry, rw, rh);
         ctx.imageSmoothingEnabled = true;
 
-        // Add randomized noise to the region
         const noiseCount = Math.round(rw * rh * 0.02);
         for (let i = 0; i < noiseCount; i++) {
             const nx = rx + Math.random() * rw;
@@ -625,13 +592,11 @@
             ctx.fillRect(nx, ny, s, s);
         }
 
-        // Slight translucent overlay to further hide details
         ctx.fillStyle = '#C0C0C0';
         ctx.globalAlpha = 0.25;
         ctx.fillRect(rx, ry, rw, rh);
         ctx.globalAlpha = 1;
 
-        // Add a clear 'PROTECTED' label
         ctx.fillStyle = 'rgba(0,0,0,0.8)';
         ctx.font = `${Math.max(12, Math.round(rh / 6))}px sans-serif`;
         ctx.textAlign = 'center';
